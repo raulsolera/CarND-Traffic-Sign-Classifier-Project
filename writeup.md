@@ -1,11 +1,3 @@
-#**Traffic Sign Recognition** 
-
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
 **Build a Traffic Sign Recognition Project**
 
 The goals / steps of this project are the following:
@@ -185,6 +177,7 @@ The data augmentation was done using [imgaug library](https://github.com/aleju/i
 * Shear: shear transformation using random angle from -20 to 20 degrees
 
 The following images illustrates the transformation:
+
 ![alt text][image58]
 
 These techniques were applied equally to all training images and added to the training dataset which result in a 139.196 images training set.
