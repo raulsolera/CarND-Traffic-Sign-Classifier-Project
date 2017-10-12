@@ -292,7 +292,3 @@ The model was able to correctly guess 10 of the 10 traffic signs, which gives an
 ![alt text][image64]
 
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
-
-
