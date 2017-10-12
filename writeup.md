@@ -18,11 +18,9 @@ The goals / steps of this project are the following:
 
 
 [//]: # (Image References)
-
 [image1]: ./writeup_images/class_counter.png "Train set examples per class"
 [image2]: ./writeup_images/label_distribution.png "Histograms of label distribution in the different sets"
 [image3]: ./writeup_images/label_distribution_2.png "Class distribution comparison between sets"
-
 [image4]: ./writeup_images/sample-original-0.png "class 0"
 [image5]: ./writeup_images/sample-original-1.png "class 1"
 [image6]: ./writeup_images/sample-original-2.png "class 2"
@@ -66,7 +64,6 @@ The goals / steps of this project are the following:
 [image44]: ./writeup_images/sample-original-40.png "class 40"
 [image45]: ./writeup_images/sample-original-41.png "class 41"
 [image46]: ./writeup_images/sample-original-42.png "class 42"
-
 [image47]: ./writeup_images/preprocessing-pipeline.png "Preprocessing pipeline"
 [image48]: ./writeup_images/Sample-converted-0.png "Preprocessing sample class 0"
 [image49]: ./writeup_images/Sample-converted-2.png "Preprocessing sample class 2"
@@ -78,13 +75,9 @@ The goals / steps of this project are the following:
 [image55]: ./writeup_images/Sample-converted-35.png "Preprocessing sample class 35"
 [image56]: ./writeup_images/Sample-converted-38.png "Preprocessing sample class 38"
 [image57]: ./writeup_images/Sample-converted-39.png "Preprocessing sample class 39"
-
 [image58]: ./writeup_images/augm-transformation.png "Augmentation transformation"
-
 [image59]: ./writeup_images/loss_acc_graph.png "Loss and accuracy graphs"
-
 [image60]: ./writeup_images/loss_acc_augm_graph.png "Loss and accuracy graphs for augmented data"
-
 [image61]: ./writeup-images/new_images.png "New images from the web"
 [image62]: ./writeup-images/new_conv_images.png "New images after preprocessig"
 [image63]: ./writeup-images/new_images_predictions.png "New images predictions"
@@ -279,22 +272,22 @@ The following graph shows the loss and accuracy learning curves:
 #### New German traffic signs.
 
 New 10 images from the web:
-![alt text][image60]: ./writeup-images/new_images.png "New images from the web"
+![alt text][image60]
 
 Images afer preprocessing:
-![alt text][image61]: ./writeup-images/new_conv_images.png "New images after preprocessig"
+![alt text][image61]
 
 The 4th image: "Beware of ice/snow" is probably the most difficult to predict as it is the least quality image of the set and after the preprocessing it is difficult to predict manually.
 
 #### Model's predictions
 
-![alt text][image62]: ./writeup-images/new_images_predictions.png "New images predictions"
+![alt text][image62]
 
 The model was able to correctly guess 10 of the 10 traffic signs, which gives an accuracy of 100% which compares favorably to the accuracy on the test set of probably because clear images has been chosen.
 
 #### Top 5 prediction for each image:
 
-![alt text][image63]: ./writeup-images/new_images_top_predictions.png "New images top predictions"
+![alt text]
 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
