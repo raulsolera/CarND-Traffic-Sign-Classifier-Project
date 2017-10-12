@@ -67,6 +67,20 @@ The goals / steps of this project are the following:
 [image45]: ./writeup_images/sample-original-41.png "class 41"
 [image46]: ./writeup_images/sample-original-42.png "class 42"
 
+[image47]: ./writeup_images/preprocessing-pipeline.png "Preprocessing pipeline"
+[image48]: ./writeup_images/Sample-converted-0.png "Preprocessing sample class 0"
+[image49]: ./writeup_images/Sample-converted-2.png "Preprocessing sample class 2"
+[image50]: ./writeup_images/Sample-converted-9.png "Preprocessing sample class 9"
+[image51]: ./writeup_images/Sample-converted-13.png "Preprocessing sample class 13"
+[image52]: ./writeup_images/Sample-converted-14.png "Preprocessing sample class 14"
+[image53]: ./writeup_images/Sample-converted-17.png "Preprocessing sample class 17"
+[image54]: ./writeup_images/Sample-converted-27.png "Preprocessing sample class 27"
+[image55]: ./writeup_images/Sample-converted-35.png "Preprocessing sample class 35"
+[image56]: ./writeup_images/Sample-converted-38.png "Preprocessing sample class 38"
+[image57]: ./writeup_images/Sample-converted-39.png "Preprocessing sample class 39"
+
+[image58]: ./writeup_images/augm-transformation.png "Augmentation transformation"
+
 [image]: ./writeup_images/sample-original-.png "class "
 [image]: ./writeup_images/sample-original-.png "class "
 
@@ -155,55 +169,78 @@ Samples of ten images of each class:
 
 On one hand the colors should not influence in the sign classification as there are no exact signs with different meanings subject to different colors, hence converting to grayscale simplifies the model and improves the efficiency.
 On the other hand images differ in terms of brightnes and contrast so it seems a good idea to apply an histogram equalization.
+
+This images illustrates the preprocessing pipeline:
+![alt text][image47]
+
+These samples illustrate the preprocessing results ten random classes:
+![alt text][image48]
+![alt text][image49]
+![alt text][image50]
+![alt text][image51]
+![alt text][image52]
+![alt text][image53]
+![alt text][image54]
+![alt text][image55]
+![alt text][image56]
+![alt text][image57]
+
 Finally the images will be normalize to 0 to 1 values dividing by 255.
 
-Preprocessing pipeline:
+##### Data augmentation:
+First training was done with the original data set reaching validation acuracy close to 96%. To improve the accuracy data augmentation was tested and validation accuracy improved up to 98%.
+
+The data augmentation was done using [imgaug library](https://github.com/aleju/imgaug/blob/master/README.md). The following techniques were used:
+* Scale: random scale factor from 80% to 120% in both x and y dimensions
+* Rotate: random rotation angle from -30 to 30 degrees
+* Shear: shear transformation using random angle from -20 to 20 degrees
+
+The following images illustrates the transformation:
+![alt text][image58]
+
+These techniques were applied equally to all training images and added to the training dataset which result in a 139.196 images training set.
+
+Although less frequent classes could have been augmentated in a greater factor to get a more homogeneuos distribution of classes in the training, as both validation and test set suffer from similar bias among classes it was decided to keep the training classes bias.
 
 
-As a first step, I decided to convert the images to grayscale because ...
+#### 2. Final model architecture:
 
-Here is an example of a traffic sign image before and after grayscaling.
+Final model was based in LeNet architecture adapted to different size inputs and greater number of classes. Addionaly dropout and L2 regularization were used to contol overfitting. The final model consisted of the following layers:
 
-![alt text][image2]
-
-As a last step, I normalized the image data because ...
-
-I decided to generate additional data because ... 
-
-To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
-
-
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
-
-My final model consisted of the following layers:
-
-| Layer         		|     Description	        					| 
+| Layer					| Description									| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input					| 32x32x1 Grayscale image  						| 
+| Convolution 1 5x5		| 1x1 stride, valid padding, outputs 28x28x6 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
+| Max pooling			| 2x2 stride,  outputs 14x14x6					|
+| Convolution 2 5x5		| 1x1 stride, valid padding, outputs 10x10x16 	|
+| RELU					|												|
+| Max pooling			| 2x2 stride,  outputs 5x5x6					|
+| Flatten				| outputs 400									|
+| Dropout				|												|
+| Fully connected 1 	| outputs 120									|
+| RELU					|												|
+| Dropout				|												|
+| Fully connected 2 	| outputs 84									|
+| RELU					|												|
+| Dropout				|												|
+| Fully connected 3 	| outputs 43									|
+| Softmax				|												|
 
+#### 3. Model training.
+Adam optimizer was used to train the model and the batch size was fix to 128. The following paramaters were tuned to improve validation accuracy:
+* Epochs: from 10 to 50 were tested
+* Learning rate: from 0.001 to 0.01 were tried
+* Learning rate exponential decay factor: values close to 0.9 were found to help stabilizing the training as the optimizer aproximates the optimum
+* Dropout keep probability: values from 0.65 to 0.9 were tested
+* L2 beta regularization parameter: values in the order of 0.0001 were used
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 4. Describe the approach.
 
-To train the model, I used an ....
+##### Training in the original data set:
+Firts training was done over the original training reaching accuracies over 95% in the validation set after tuning up the training paramaters.
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
-
-My final model results were:
+The final model trained in the results were:
 * training set accuracy of ?
 * validation set accuracy of ? 
 * test set accuracy of ?
@@ -220,10 +257,11 @@ If a well known architecture was chosen:
 * Why did you believe it would be relevant to the traffic sign application?
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
  
+##### Training in the augmented data set:
 
-###Test a Model on New Images
+### Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
 Here are five German traffic signs that I found on the web:
 
@@ -232,7 +270,7 @@ Here are five German traffic signs that I found on the web:
 
 The first image might be difficult to classify because ...
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
