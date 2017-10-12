@@ -81,25 +81,15 @@ The goals / steps of this project are the following:
 
 [image58]: ./writeup_images/augm-transformation.png "Augmentation transformation"
 
-[image]: ./writeup_images/sample-original-.png "class "
-[image]: ./writeup_images/sample-original-.png "class "
+[image59]: ./writeup_images/loss_acc_graph.png "Loss and accuracy graphs"
 
+[image60]: ./writeup_images/loss_acc_augm_graph.png "Loss and accuracy graphs for augmented data"
 
+[image61]: ./writeup-images/new_images.png "New images from the web"
+[image62]: ./writeup-images/new_conv_images.png "New images after preprocessig"
+[image63]: ./writeup-images/new_images_predictions.png "New images predictions"
+[image64]: ./writeup-images/new_images_top_predictions.png "New images top predictions"
 
-
-
-
-
-
-## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
-
----
-###Writeup / README
-
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ### Data Set Summary & Exploration
 
@@ -238,69 +228,74 @@ Adam optimizer was used to train the model and the batch size was fix to 128. Th
 #### 4. Describe the approach.
 
 ##### Training in the original data set:
-Firts training was done over the original training reaching accuracies over 95% in the validation set after tuning up the training paramaters.
+Firts training was done over the original training reaching accuracies over 96% in the validation set after tuning up the training parameters. The following values were found to bring optimal results:
+* Epochs: 25
+* Learning rate: 0.005
+* Learning rate exponential decay factor: 0.88
+* Dropout keep probability: 0.65
+* L2 beta regularization parameter: 0.0001
 
 The final model trained in the results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 99.79%
+* validation set accuracy of 96.80%
+* test set accuracy of 95.42%
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+The following graph shows the loss and accuracy learning curves:
+![alt text][image59]
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+The following aproach was used to tun the parametes:
+1. Try to get the best possible training accuracy using tuning epochs and learning rate parameters.
+2. Once adjusted these parameters try to reduce overfitting using dropout and L2 regularization using keep probablity and beta reguralization parameters.
+
+The LeNet architecture was chosen as base model and adjusted to return 43 classes instead of 10 classes from the MNIST data set. LeNet architecture has rechead great results in image recognition in the MNIST data set and hence represented a good start.
+The original architecture was improved with dropout and L2 regularization in the fully connected layers to control overffiting
+These architecture got consistent accuracy results close to 97% accuracy in the validation set without using complex techniques such as data aumentation, early stopping, pretraining... and in only few minutes using an 8 eight years old Mac Book with 16 GB of RAM and an NVIDIA GeForce 320M 256 MB. 
  
 ##### Training in the augmented data set:
+To improved results the augmented training set was used with the aim to reach 98% accuracy. Computational cost increased as to make training un-practical in desktop laptop so an amazon G2.2 large instance was used.
+
+Using a greater training data set reduces risks of overfitting and hence lower regularization parameters were used. However, although greater accuracy was reached we could only grasp the expected 98%  but not be consistently over. Only a rough 1% higher than the model trained with the original data set and at a much higher computational cost.
+
+Probably a more complex model with one more convolution layer and probably another fully connected layer should be used. It could also be of use a more complex image augmentation model to increase the least represented classes.
+
+The following values were found to bring optimal results in the augmented data set:
+* Epochs: 20
+* Learning rate: 0.0025
+* Learning rate exponential decay factor: 0.85
+* Dropout keep probability: 0.75
+* L2 beta regularization parameter: 0.0
+
+The final model trained in the results were:
+* training set accuracy of 99.28%
+* validation set accuracy of 97.73%
+* test set accuracy of 96.25%
+
+The following graph shows the loss and accuracy learning curves:
+![alt text][image60]
+
 
 ### Test a Model on New Images
 
-#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### New German traffic signs.
 
-Here are five German traffic signs that I found on the web:
+New 10 images from the web:
+![alt text][image60]: ./writeup-images/new_images.png "New images from the web"
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+Images afer preprocessing:
+![alt text][image61]: ./writeup-images/new_conv_images.png "New images after preprocessig"
 
-The first image might be difficult to classify because ...
+The 4th image: "Beware of ice/snow" is probably the most difficult to predict as it is the least quality image of the set and after the preprocessing it is difficult to predict manually.
 
-#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### Model's predictions
 
-Here are the results of the prediction:
+![alt text][image62]: ./writeup-images/new_images_predictions.png "New images predictions"
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+The model was able to correctly guess 10 of the 10 traffic signs, which gives an accuracy of 100% which compares favorably to the accuracy on the test set of probably because clear images has been chosen.
 
+#### Top 5 prediction for each image:
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+![alt text][image63]: ./writeup-images/new_images_top_predictions.png "New images top predictions"
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
-
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
-
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
-
-
-For the second image ... 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
