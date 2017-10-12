@@ -19,14 +19,63 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image1]: ./writeup_images/class_counter.png "Train set examples per class"
+[image2]: ./writeup_images/label_distribution.png "Histograms of label distribution in the different sets"
+[image3]: ./writeup_images/label_distribution_2.png "Class distribution comparison between sets"
+
+[image4]: ./writeup_images/sample-original-0.png "class 0"
+[image5]: ./writeup_images/sample-original-1.png "class 1"
+[image6]: ./writeup_images/sample-original-2.png "class 2"
+[image7]: ./writeup_images/sample-original-3.png "class 3"
+[image8]: ./writeup_images/sample-original-4.png "class 4"
+[image9]: ./writeup_images/sample-original-5.png "class 5"
+[image10]: ./writeup_images/sample-original-6.png "class 6"
+[image11]: ./writeup_images/sample-original-7.png "class 7"
+[image12]: ./writeup_images/sample-original-8.png "class 8"
+[image13]: ./writeup_images/sample-original-9.png "class 9"
+[image14]: ./writeup_images/sample-original-10.png "class 10"
+[image15]: ./writeup_images/sample-original-11.png "class 11"
+[image16]: ./writeup_images/sample-original-12.png "class 12"
+[image17]: ./writeup_images/sample-original-13.png "class 13"
+[image18]: ./writeup_images/sample-original-14.png "class 14"
+[image19]: ./writeup_images/sample-original-15.png "class 15"
+[image20]: ./writeup_images/sample-original-16.png "class 16"
+[image21]: ./writeup_images/sample-original-17.png "class 17"
+[image22]: ./writeup_images/sample-original-18.png "class 18"
+[image23]: ./writeup_images/sample-original-19.png "class 19"
+[image24]: ./writeup_images/sample-original-20.png "class 20"
+[image25]: ./writeup_images/sample-original-21.png "class 21"
+[image26]: ./writeup_images/sample-original-22.png "class 22"
+[image27]: ./writeup_images/sample-original-23.png "class 23"
+[image28]: ./writeup_images/sample-original-24.png "class 24"
+[image29]: ./writeup_images/sample-original-25.png "class 25"
+[image30]: ./writeup_images/sample-original-26.png "class 26"
+[image31]: ./writeup_images/sample-original-27.png "class 27"
+[image32]: ./writeup_images/sample-original-28.png "class 28"
+[image33]: ./writeup_images/sample-original-29.png "class 29"
+[image34]: ./writeup_images/sample-original-30.png "class 30"
+[image35]: ./writeup_images/sample-original-31.png "class 31"
+[image36]: ./writeup_images/sample-original-32.png "class 32"
+[image37]: ./writeup_images/sample-original-33.png "class 33"
+[image38]: ./writeup_images/sample-original-34.png "class 34"
+[image39]: ./writeup_images/sample-original-35.png "class 35"
+[image40]: ./writeup_images/sample-original-36.png "class 36"
+[image41]: ./writeup_images/sample-original-37.png "class 37"
+[image42]: ./writeup_images/sample-original-38.png "class 38"
+[image43]: ./writeup_images/sample-original-39.png "class 39"
+[image44]: ./writeup_images/sample-original-40.png "class 40"
+[image45]: ./writeup_images/sample-original-41.png "class 41"
+[image46]: ./writeup_images/sample-original-42.png "class 42"
+
+[image]: ./writeup_images/sample-original-.png "class "
+[image]: ./writeup_images/sample-original-.png "class "
+
+
+
+
+
+
+
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -38,28 +87,78 @@ The goals / steps of this project are the following:
 
 You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
-###Data Set Summary & Exploration
+### Data Set Summary & Exploration
 
-####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+#### 1. Basic summary of the data set.
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+The dataset consists of 3 sets (training, validation and test) of 32x32 RGB color images:
+* The size of training set is 34.799
+* The size of the validation set is 4.410
+* The size of test set is 12.630
+* The shape of a traffic sign image is 32 x 32 x 3
+* The number of unique classes/labels in the data set is 43
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+#### 2. Exploratory visualization of the dataset.
 
-####2. Include an exploratory visualization of the dataset.
-
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
-
+##### Sign classes distribution:
+The images are not uniformly distributed among classes, in the train set they range from 180 images of the least represented classes to 2.010 of the most represented class:
 ![alt text][image1]
 
-###Design and Test a Model Architecture
+However, the distribution among classes is similar in all the training sets:
+![alt text][image2]
+![alt text][image3]
 
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+##### Sample images visualizations:
+Samples of ten images of each class:
+![alt text][image4]
+![alt text][image5]
+![alt text][image6]
+![alt text][image7]
+![alt text][image8]
+![alt text][image9]
+![alt text][image10]
+![alt text][image11]
+![alt text][image12]
+![alt text][image13]
+![alt text][image14]
+![alt text][image15]
+![alt text][image16]
+![alt text][image17]
+![alt text][image18]
+![alt text][image19]
+![alt text][image20]
+![alt text][image22]
+![alt text][image23]
+![alt text][image24]
+![alt text][image25]
+![alt text][image26]
+![alt text][image27]
+![alt text][image28]
+![alt text][image29]
+![alt text][image30]
+![alt text][image31]
+![alt text][image32]
+![alt text][image33]
+![alt text][image34]
+![alt text][image35]
+![alt text][image36]
+![alt text][image37]
+![alt text][image38]
+![alt text][image39]
+![alt text][image40]
+![alt text][image41]
+![alt text][image42]
+
+### Design and Test a Model Architecture
+
+#### 1. Image data preprocessing.
+
+On one hand the colors should not influence in the sign classification as there are no exact signs with different meanings subject to different colors, hence converting to grayscale simplifies the model and improves the efficiency.
+On the other hand images differ in terms of brightnes and contrast so it seems a good idea to apply an histogram equalization.
+Finally the images will be normalize to 0 to 1 values dividing by 255.
+
+Preprocessing pipeline:
+
 
 As a first step, I decided to convert the images to grayscale because ...
 
