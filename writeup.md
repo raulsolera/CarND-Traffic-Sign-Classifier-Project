@@ -18,6 +18,7 @@ The goals / steps of this project are the following:
 
 
 [//]: # (Image References)
+
 [image1]: ./writeup_images/class_counter.png "Train set examples per class"
 [image2]: ./writeup_images/label_distribution.png "Histograms of label distribution in the different sets"
 [image3]: ./writeup_images/label_distribution_2.png "Class distribution comparison between sets"
@@ -99,14 +100,17 @@ The dataset consists of 3 sets (training, validation and test) of 32x32 RGB colo
 
 ##### Sign classes distribution:
 The images are not uniformly distributed among classes, in the train set they range from 180 images of the least represented classes to 2.010 of the most represented class:
+
 ![alt text][image1]
 
 However, the distribution among classes is similar in all the training sets:
+
 ![alt text][image2]
 ![alt text][image3]
 
 ##### Sample images visualizations:
 Samples of ten images of each class:
+
 ![alt text][image4]
 ![alt text][image5]
 ![alt text][image6]
@@ -154,9 +158,11 @@ On one hand the colors should not influence in the sign classification as there 
 On the other hand images differ in terms of brightnes and contrast so it seems a good idea to apply an histogram equalization.
 
 This images illustrates the preprocessing pipeline:
+
 ![alt text][image47]
 
 These samples illustrate the preprocessing results ten random classes:
+
 ![alt text][image48]
 ![alt text][image49]
 ![alt text][image50]
@@ -234,6 +240,7 @@ The final model trained in the results were:
 * test set accuracy of 95.42%
 
 The following graph shows the loss and accuracy learning curves:
+
 ![alt text][image59]
 
 The following aproach was used to tun the parametes:
@@ -264,30 +271,32 @@ The final model trained in the results were:
 * test set accuracy of 96.25%
 
 The following graph shows the loss and accuracy learning curves:
+
 ![alt text][image60]
 
 
 ### Test a Model on New Images
 
 #### New German traffic signs.
-
 New 10 images from the web:
-![alt text][image60]
+
+![alt text][image61]
 
 Images afer preprocessing:
-![alt text][image61]
+
+![alt text][image62]
 
 The 4th image: "Beware of ice/snow" is probably the most difficult to predict as it is the least quality image of the set and after the preprocessing it is difficult to predict manually.
 
 #### Model's predictions
 
-![alt text][image62]
+![alt text][image63]
 
 The model was able to correctly guess 10 of the 10 traffic signs, which gives an accuracy of 100% which compares favorably to the accuracy on the test set of probably because clear images has been chosen.
 
 #### Top 5 prediction for each image:
 
-![alt text]
+![alt text][image64]
 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
